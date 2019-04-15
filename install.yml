@@ -1,0 +1,4 @@
+- hosts: workers
+  tasks:
+    - name: Hello World!
+      shell: echo "Hello, world."

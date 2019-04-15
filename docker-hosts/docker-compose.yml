@@ -1,0 +1,110 @@
+## container sshd pour tester ansible
+# rastasheep/ubuntu-sshd
+# panubo/sshd (with alpine)
+# pdemanget/fedora-sshd
+
+version: '3'
+services:
+  ssh00:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh00
+    ports:
+      - "10022:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+#    command: /usr/sbin/sshd
+  ssh01:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh01
+    ports:
+      - "10122:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh02:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh02
+    ports:
+      - "10222:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh03:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh03
+    ports:
+      - "10322:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh04:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh04
+    ports:
+      - "10422:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh05:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh05
+    ports:
+      - "10522:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh06:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh06
+    ports:
+      - "10622:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh07:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh07
+    ports:
+      - "10722:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh08:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh08
+    ports:
+      - "10822:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+  ssh09:
+    image: pdemanget/fedora-sshd:29
+    hostname: ssh09
+    ports:
+      - "10922:22"
+    environment:
+      - SSH_ENABLE_ROOT=true
+    volumes:
+      - "~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys"
+      - "/mnt/data/:/data/"
+
+ 

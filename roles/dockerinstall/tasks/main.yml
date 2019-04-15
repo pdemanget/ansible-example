@@ -1,0 +1,82 @@
+---
+
+- name: "Download sbt repository file"
+  get_url:
+    url: "{{ _jenkins_sbt_repo }}"
+    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
+
+- name: "Download jenkins repository file"
+  get_url:
+    url: "{{ _jenkins_repo }}"
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: "Import jenkins key"
+  rpm_key:
+    state: present
+    key: "{{ _jenkins_rpm_key }}"
+
+- name: "Install jenkins package and dependencies"
+  import_role:
+    name: linux/centos/yum_install_pkg
+  vars:
+    _yum_install_pkgs_list: "{{ _jenkins_pkgs_list }}"
+    _yum_uninstall_pkgs_list: []
+
+- name: "Install rrsync to manage backups"
+  import_role:
+    name: linux/rrsync
+
+- name: "Ensure group 'docker' exists"
+  group:
+    name: docker
+    state: present
+    system: yes
+
+- name: "Generate ssh key for {{ _jenkins_system_user }} user add jenkins user to docker group"
+  user:
+    name: "{{ _jenkins_system_user }}"
+    append: yes
+    groups: "docker"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_comment: "{{ _jenkins_system_user }}@{{ ansible_hostname }}"
+
+- name: "Fetch just generated public key"
+  fetch:
+    src: "{{ _jenkins_home_dir }}/.ssh/id_rsa.pub"
+    dest: "{{ inventory_dir }}/host_vars/{{ ansible_host }}/sshkeys/"
+    flat: yes
+
+- name: "Create backup directory"
+  file:
+    path: "{{ _jenkins_backup_dir }}"
+    owner: "{{ _jenkins_system_user }}"
+    group: "{{ _jenkins_system_group }}"
+    mode: 0755
+    state: directory
+
+- name: "Enable and start docker"
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: "Enable and start jenkins"
+  systemd:
+    name: jenkins
+    state: started
+    enabled: yes
+
+- name: "Sleep for 30 seconds to let jenkins starts"
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
+
+- name: "Print jenkins init password (1)"
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  changed_when: false
+  register: jenkins_password
+
+- name: "Print jenkins init password (2)"
+  debug:
+    var: jenkins_password.stdout

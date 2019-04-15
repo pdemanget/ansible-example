@@ -1,0 +1,17 @@
+---
+
+_jenkins_repo: "https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+_jenkins_sbt_repo: "https://bintray.com/sbt/rpm/rpm"
+# Don't add quotes for key to avoid interpretation as string, and error...
+_jenkins_rpm_key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+_jenkins_pkgs_list:
+  - java
+  - java-1.8.0-openjdk-devel
+  - git
+  - jenkins
+  - sbt
+  - docker
+
+_jenkins_system_user: "jenkins"
+_jenkins_system_group: "jenkins"
