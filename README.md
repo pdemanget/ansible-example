@@ -3,20 +3,21 @@ Ansible example
 
 1. run workers
 
-    cd docker
+    cd docker  
     docker-compose up
     
 2. check some command
-rem: you should not use relative path
-export ANSIBLE_INVENTORY=./ansible_hosts
-export ANSIBLE_HOST_KEY_CHECKING=false
- ansible all -i inventory.ini -a "cat /etc/hostname"  
-ansible all -m ping 
-ansible all -a "/bin/echo hello"
-ansible all -a "cat /etc/hostname"  
-ansible localhost -m ping -e 'ansible_python_interpreter="/usr/bin/env python"'
 
-ansible-inventory webservers   --graph 
+rem: you should not use relative path  
+export ANSIBLE_INVENTORY=./ansible_hosts  
+export ANSIBLE_HOST_KEY_CHECKING=false  
+ansible all -i inventory.ini -a "cat /etc/hostname"  
+ansible all -m ping   
+ansible all -a "/bin/echo hello"  
+ansible all -a "cat /etc/hostname"  
+ansible localhost -m ping -e 'ansible_python_interpreter="/usr/bin/env python"'  
+
+ansible-inventory webservers   --graph  
 
  
  
